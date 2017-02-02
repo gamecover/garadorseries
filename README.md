@@ -1,1 +1,1 @@
-# garadorseries.github.io
+# http://garadorseries.github.io
