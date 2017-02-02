@@ -1,1 +1,1 @@
-# http://garadorseries.github.io
+# https://gamecover.github.io/garadorseries/
