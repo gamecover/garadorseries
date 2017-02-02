@@ -1,0 +1,102 @@
+
+
+<html>
+
+<head>
+    <title>Gerador de post</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300" rel="stylesheet">
+
+<body style="background: #fbfbfb; font-family: 'Nunito Sans', sans-serif;">
+    <center>
+        <h1> Gerador de HTML de POSTS PARA SÉRIES</h1>
+        <h5> by <a href='http://dfbert.com' style="text-decoration: none; color: #03a9f4;" target="_blank">dfbert</a>.com</h1>
+        <div style="width: 700px;  text-align: left;">
+            <div class="params">
+            	<h3 style="text-align: left; padding-left: 10px;">► &nbsp; Digite o número de discos</h3>
+                <input type="text" name="disknumber" placeholder="Numero de discos" maxlength="2" style="width: 88%;margin-bottom: 15px;border-radius: 5px;border: 1px solid #cccccc;padding: 8px;" />
+                <input type="submit" class="submitd" style="width: 10%;float: right; border-radius: 5px;border: 1px solid #cccccc;padding: 8px;" />
+
+                <!--
+<input type="text" name="imgurl" placeholder="URL da Imagem" style="width: 100%;margin-bottom: 15px;border-radius: 5px;border: 1px solid #cccccc;padding: 8px;"/>
+
+<input type="text" name="imgtitle" placeholder="Title da Imagem" style="width: 100%;margin-bottom: 15px;border-radius: 5px;border: 1px solid #cccccc;padding: 8px;"/>
+<br />
+<textarea readonly="readonly" name="html" style="width: 100%; height: 300px; margin-bottom: 15px;border-radius: 5px;border: 1px solid #cccccc;padding: 8px;"></textarea>
+</div>
+-->
+            </div>
+    </center>
+
+    <script type="text/javascript">
+        $("document").ready(function() {
+        	jQuery.fn.ForceNumericOnly =
+			function()
+			{
+			    return this.each(function()
+			    {
+			        $(this).keydown(function(e)
+			        {
+			            var key = e.charCode || e.keyCode || 0;
+			            // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
+			            // home, end, period, and numpad decimal
+			            return (
+			                key == 8 || 
+			                key == 9 ||
+			                key == 13 ||
+			                key == 46 ||
+			                key == 110 ||
+			                key == 190 ||
+			                (key >= 35 && key <= 40) ||
+			                (key >= 48 && key <= 57) ||
+			                (key >= 96 && key <= 105));
+			        });
+			    });
+			};
+			$("input[name='disknumber']").ForceNumericOnly();
+            $(".submitd").click(function() {
+                var disknumber = parseInt($("input[name='disknumber']").val()) + 1;
+                if (disknumber > 0 && disknumber < 101) {
+                    $(".params").html('<input type="submit" class="submitback" value="Voltar" style="width: 10%;float: right; border-radius: 5px;border: 1px solid #cccccc;padding: 8px;" /><br /><br />');
+                    for (i = 1; i < disknumber; i++) {
+
+                        $(".params").append('<input type="text" name="imgurl_' + i + '" placeholder="URL da Imagem ' + i + '" style="width: 100%;margin-bottom: 15px;border-radius: 5px;border: 1px solid #cccccc;padding: 8px;"/> <br />');
+
+                    }
+                    $(".params").append('<input type="text" name="imgtitle" placeholder="Title da Imagem" style="width: 100%;margin-bottom: 15px;border-radius: 5px;border: 1px solid #cccccc;padding: 8px;"/> <br /> <textarea readonly="readonly" name="html" placeholder="Resultado do HTML" style="width: 100%; height: 300px; margin-bottom: 15px;border-radius: 5px;border: 1px solid #cccccc;padding: 8px;"></textarea><br/><input type="submit" class="submitback" value="Voltar" style="width: 10%;float: right; border-radius: 5px;border: 1px solid #cccccc;padding: 8px;" /><br /><br />');
+
+                    $(".params input").keyup(function() {
+                        var content = '<div class="separator" style="clear: both; text-align: center;"> <a href="'+$("input[name='imgurl_1']").val()+'" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="s640" src="'+$("input[name='imgurl_1']").val()+'" width="640" /></a></div><div class="synop_down"> \n<table><tbody>\n <tr> <td>CAPAS</td> </tr>\n'; 
+
+                        for (i = 1; i < disknumber; i++) {
+                            var imgurl = $("input[name='imgurl_" + i + "']").val();
+
+                            var img1600 = imgurl.replace("s1600", "s1600");
+                            var img640 = imgurl.replace("s1600", "s640");
+                            var img0 = imgurl.replace("s1600", "s0");
+                            content = content + '<tr> <td>DISCO ' + i + '</td> <td><a href="' + img0 + '">DOWNLOAD</a> </td> </tr>\n\n';
+                        }
+                        var imgtitle = $("input[name='imgtitle']").val();
+                        var html = $("textarea[name='html']");
+                        content = content + '\n</tbody></table> </div>';
+                        html.html(content);
+                        html.focus(function() { $(this).select(); } );
+                    });
+                    $(".submitback").click(function(){
+                    	location.reload();
+                    });
+                }
+                else{
+                	alert("Número inválido")
+                }
+            });
+
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>
